@@ -21,8 +21,6 @@ export default async (req, res) => {
   res.setPreviewData({
     slug: content.id,
     draftKey: req.query.draftKey,
-  }, {
-    maxAge: 3,
   });
   res.writeHead(307, { Location: `/blog/${content.id}` });
   res.end('Preview mode enabled');
