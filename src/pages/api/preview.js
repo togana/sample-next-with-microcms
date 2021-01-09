@@ -22,7 +22,7 @@ export default async (req, res) => {
     slug: content.id,
     draftKey: req.query.draftKey,
   }, {
-    maxAge: 1,
+    maxAge: 3,
   });
   res.writeHead(307, { Location: `/blog/${content.id}` });
   res.end('Preview mode enabled');
