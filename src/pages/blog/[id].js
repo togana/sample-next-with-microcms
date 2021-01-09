@@ -1,28 +1,9 @@
-import { useRouter } from 'next/router';
-import NotFoundPage from '..//404';
+import { Blog } from '../../components/Blog';
 
-export default function BlogBody({ preview, blog }) {
-  const router = useRouter();
-
-  // 読込中
-  if (router.isFallback) {
-    return <div>Loading...</div>
-  }
-
-  // 存在しない場合
-  if (!blog?.id) return <NotFoundPage />;
-
+export default function Index({ blog }) {
   return (
     <main>
-      { preview ? <h1>プレビュー</h1> : <></>}
-      <h1>{blog.title}</h1>
-      <p>{blog.publishedAt}</p>
-      <p>{blog.category && `${blog.category.name}`}</p>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: `${blog.body}`,
-        }}
-      />
+      <Blog blog={blog} />
     </main>
   );
 }
@@ -37,29 +18,24 @@ export const getStaticPaths = async () => {
   const paths = data.contents.map(content => `/blog/${content.id}`);
   return {
     paths,
-  fallback: true,
+  fallback: false,
   };
 };
 
 export const getStaticProps = async context => {
   const id = context.params.id;
-  const previewId = context.previewData?.id;
-  const draftKey = context.previewData?.draftKey;
-  const draftKeyParams = draftKey !== undefined ? `?draftKey=${draftKey}` : '';
   const key = {
     headers: {'X-API-KEY': process.env.MICRO_CMS_API_KEY},
   };
   const data = await fetch(
-    `https://sample-next-blog.microcms.io/api/v1/blog/${id}${draftKeyParams}`,
+    `https://sample-next-blog.microcms.io/api/v1/blog/${id}`,
     key,
   )
     .then(res => res.json())
     .catch(() => null);
   return {
     props: {
-      preview: previewId === id,
       blog: data,
     },
-    revalidate: 1
   };
 };

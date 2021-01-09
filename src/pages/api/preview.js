@@ -22,6 +22,6 @@ export default async (req, res) => {
     id: content.id,
     draftKey: req.query.draftKey,
   });
-  res.writeHead(307, { Location: `/blog/${content.id}` });
+  res.writeHead(307, { Location: '/blog/preview' });
   res.end('Preview mode enabled');
 };
