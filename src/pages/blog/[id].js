@@ -43,6 +43,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async context => {
   const id = context.params.id;
+  const previewId = context.previewData?.id;
   const draftKey = context.previewData?.draftKey;
   const draftKeyParams = draftKey !== undefined ? `?draftKey=${draftKey}` : '';
   const key = {
@@ -56,7 +57,7 @@ export const getStaticProps = async context => {
     .catch(() => null);
   return {
     props: {
-      preview: !!draftKey,
+      preview: previewId === id,
       blog: data,
     },
     revalidate: 1
