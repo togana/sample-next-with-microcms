@@ -1,4 +1,4 @@
-export const Blog = (blog) => (
+export const Blog = ({ blog }) => (
   <>
     <h1>{blog.title}</h1>
     <p>{blog.publishedAt}</p>
