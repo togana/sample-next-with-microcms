@@ -14,10 +14,12 @@ export default function BlogPreview({ blog }) {
   if (!blog?.id) return <NotFoundPage />;
 
   return (
-    <h1>プレビュー</h1>
-    <main>
-      <Blog blog={blog} />
-    </main>
+    <>
+      <h1>プレビュー</h1>
+      <main>
+        <Blog blog={blog} />
+      </main>
+    </>
   );
 }
 
