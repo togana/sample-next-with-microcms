@@ -56,7 +56,7 @@ export const getStaticProps = async context => {
     .catch(() => null);
   return {
     props: {
-      preview: !!context?.preview,
+      preview: !!draftKey,
       blog: data,
     },
     revalidate: 1
