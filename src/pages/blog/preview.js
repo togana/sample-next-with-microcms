@@ -23,7 +23,7 @@ export default function BlogPreview({ blog }) {
   );
 }
 
-export const getStaticProps = async context => {
+export const getServerSideProps = async context => {
   const id = context.previewData?.id;
   const draftKey = context.previewData?.draftKey;
   const key = {
@@ -39,6 +39,5 @@ export const getStaticProps = async context => {
     props: {
       blog: data,
     },
-    revalidate: 1
   };
 };
